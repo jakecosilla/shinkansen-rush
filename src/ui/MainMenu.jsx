@@ -43,15 +43,15 @@ const MainMenu = ({ onStart }) => {
         ))}
       </div>
 
-      <div style={{ background: 'rgba(255,255,255,0.9)', padding: '1.5rem', borderRadius: '15px', width: '320px', marginBottom: '1.5rem', border: '3px solid var(--primary-color)', boxShadow: '0 5px 15px rgba(0, 119, 182, 0.2)' }}>
+      <div style={{ background: 'rgba(255,255,255,0.9)', padding: '1.5rem', borderRadius: '15px', width: '90%', maxWidth: '360px', marginBottom: '1.5rem', border: '3px solid var(--primary-color)', boxShadow: '0 5px 15px rgba(0, 119, 182, 0.2)', boxSizing: 'border-box' }}>
         <div style={{ marginBottom: '1.2rem' }}>
           <label style={{ display: 'block', fontSize: '0.9rem', color: '#444', marginBottom: '0.4rem', fontWeight: 'bold' }}>PLAYER NAME</label>
-          <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Name" style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '2px solid var(--primary-color)', background: '#fff', color: '#222', fontSize: '1rem', outline: 'none' }} />
+          <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Name" style={{ width: '100%', maxWidth: '100%', padding: '0.8rem 0.5rem', borderRadius: '8px', border: '2px solid var(--primary-color)', background: '#fff', color: '#222', fontSize: '1rem', outline: 'none', boxSizing: 'border-box' }} />
         </div>
         
         <div style={{ marginBottom: '0' }}>
           <label style={{ display: 'block', fontSize: '0.9rem', color: '#444', marginBottom: '0.4rem', fontWeight: 'bold' }}>BIRTHDAY</label>
-          <input type="date" value={birthday} onChange={e => setBirthday(e.target.value)} style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '2px solid var(--primary-color)', background: '#fff', color: '#222', fontSize: '1rem', colorScheme: 'light', outline: 'none' }} />
+          <input type="date" value={birthday} onChange={e => setBirthday(e.target.value)} style={{ width: '100%', maxWidth: '100%', padding: '0.8rem 0.5rem', borderRadius: '8px', border: '2px solid var(--primary-color)', background: '#fff', color: '#222', fontSize: '1rem', colorScheme: 'light', outline: 'none', boxSizing: 'border-box' }} />
         </div>
       </div>
 

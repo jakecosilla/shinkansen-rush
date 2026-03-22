@@ -28,10 +28,13 @@ const GameOver = ({ score, onRestart, onMenu, config }) => {
         <h1 style={{ 
             color: 'var(--primary-color)', 
             textShadow: '0 0 20px rgba(0, 119, 182, 0.5)', 
-            marginTop: '-2rem',
+            marginTop: '1rem',
+            padding: '0 1rem',
+            fontSize: 'clamp(1.8rem, 6vw, 3rem)',
+            lineHeight: 1.2,
             animation: 'bouncePulse 0.8s infinite ease-in-out'
         }}>
-          🎉 HAPPY BIRTHDAY, {playerName}! 🎉
+          🎉 HAPPY BIRTHDAY,<br/>{playerName}! 🎉
         </h1>
         <div className="subtitle" style={{ color: 'var(--secondary-color)' }}>お誕生日おめでとう！</div>
         
