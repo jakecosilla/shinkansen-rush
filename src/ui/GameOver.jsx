@@ -25,30 +25,38 @@ const GameOver = ({ score, onRestart, onMenu, config }) => {
             }
           `}
         </style>
-        <h1 style={{ 
-            color: 'var(--primary-color)', 
-            textShadow: '0 0 20px rgba(0, 119, 182, 0.5)', 
-            marginTop: '1rem',
-            padding: '0 1rem',
-            fontSize: 'clamp(1.8rem, 6vw, 3rem)',
-            lineHeight: 1.2,
-            animation: 'bouncePulse 0.8s infinite ease-in-out'
+        <h1 style={{
+          color: 'var(--primary-color)',
+          textShadow: '0 0 20px rgba(0, 119, 182, 0.5)',
+          marginTop: '4rem',
+          padding: '0 1rem',
+          fontSize: 'clamp(1.8rem, 6vw, 3rem)',
+          lineHeight: 1.2,
+          animation: 'bouncePulse 0.8s infinite ease-in-out'
         }}>
-          🎉 HAPPY BIRTHDAY,<br/>{playerName}! 🎉
+          HAPPY BIRTHDAY,<br />{playerName}!🎉
         </h1>
         <div className="subtitle" style={{ color: 'var(--secondary-color)' }}>お誕生日おめでとう！</div>
-        
-        <div style={{ fontSize: '6rem', margin: '0', display: 'flex', gap: '2rem', justifyContent: 'center', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.2))' }}>
+
+        <div style={{
+          fontSize: 'clamp(2.5rem, 10vw, 4rem)',
+          margin: '1rem 0',
+          display: 'flex',
+          gap: '1.5rem',
+          justifyContent: 'center',
+          filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.2))',
+          fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+        }}>
           <span>🎊</span>
           <span>🚄🎂</span>
           <span>🎊</span>
         </div>
 
         <div style={{ margin: '2rem 0', textAlign: 'center', background: 'rgba(255,255,255,0.9)', padding: '1rem 3rem', borderRadius: '20px', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}>
-          <div style={{ fontSize: '1.2rem', color: '#555', textTransform: 'uppercase', fontWeight: 'bold' }}>Birthday Run Distance</div>
+          <div style={{ fontSize: '1.2rem', color: '#555', textTransform: 'uppercase', fontWeight: 'bold' }}>Birthday Run Distance🎂</div>
           <div className="score-display" style={{ color: 'var(--primary-color)', marginBottom: 0 }}>{Math.floor(score)}m</div>
         </div>
-        
+
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '1rem', width: '100%' }}>
           <button className="btn" onClick={onRestart}>
             <RotateCcw style={{ marginRight: '10px', verticalAlign: 'middle' }} />
@@ -65,16 +73,16 @@ const GameOver = ({ score, onRestart, onMenu, config }) => {
 
   return (
     <div className="ui-overlay">
-      <h1 style={{ color: '#ff003c', textShadow: '0 0 20px rgba(255, 0, 60, 0.5)' }}>
+      <h1 style={{ color: '#ff003c', textShadow: '0 0 20px rgba(255, 0, 60, 0.5)', marginTop: '4rem' }}>
         CRASHED!
       </h1>
       <div className="subtitle" style={{ color: '#ff4d6d' }}>ゲームオーバー</div>
-      
+
       <div style={{ margin: '2rem 0', textAlign: 'center', background: 'rgba(255,255,255,0.9)', padding: '1rem 3rem', borderRadius: '20px', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}>
         <div style={{ fontSize: '1.2rem', color: '#555', textTransform: 'uppercase', fontWeight: 'bold' }}>Distance Traveled</div>
         <div className="score-display" style={{ marginBottom: 0 }}>{Math.floor(score)}m</div>
       </div>
-      
+
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '1rem', width: '100%' }}>
         <button className="btn" onClick={onRestart}>
           <RotateCcw style={{ marginRight: '10px', verticalAlign: 'middle' }} />
