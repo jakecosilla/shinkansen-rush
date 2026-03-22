@@ -28,7 +28,6 @@ const GameOver = ({ score, onRestart, onMenu, config }) => {
         <h1 style={{ 
             color: 'var(--primary-color)', 
             textShadow: '0 0 20px rgba(0, 119, 182, 0.5)', 
-            fontSize: '4rem', 
             marginTop: '-2rem',
             animation: 'bouncePulse 0.8s infinite ease-in-out'
         }}>
@@ -47,7 +46,7 @@ const GameOver = ({ score, onRestart, onMenu, config }) => {
           <div className="score-display" style={{ color: 'var(--primary-color)', marginBottom: 0 }}>{Math.floor(score)}m</div>
         </div>
         
-        <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '1rem', width: '100%' }}>
           <button className="btn" onClick={onRestart}>
             <RotateCcw style={{ marginRight: '10px', verticalAlign: 'middle' }} />
             RACE AGAIN
@@ -73,10 +72,10 @@ const GameOver = ({ score, onRestart, onMenu, config }) => {
         <div className="score-display" style={{ marginBottom: 0 }}>{Math.floor(score)}m</div>
       </div>
       
-      <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '1rem', width: '100%' }}>
         <button className="btn" onClick={onRestart}>
           <RotateCcw style={{ marginRight: '10px', verticalAlign: 'middle' }} />
-          PLAY AGAIN
+          RACE AGAIN
         </button>
         <button className="btn btn-secondary" onClick={onMenu}>
           <Home style={{ marginRight: '10px', verticalAlign: 'middle' }} />
