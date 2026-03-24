@@ -15,7 +15,7 @@ const MainMenu = ({ onStart }) => {
   };
 
   return (
-    <div className="ui-overlay" style={{ background: 'var(--dark-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', overflowY: 'auto', padding: '2rem 0' }}>
+    <div className="ui-overlay" style={{ background: 'var(--dark-bg)', overflowY: 'auto', padding: '2rem 0', height: '100%', minHeight: '100dvh' }}>
       <h1>Shinkansen Rush</h1>
       <div className="subtitle">新幹線ラッシュ</div>
 
