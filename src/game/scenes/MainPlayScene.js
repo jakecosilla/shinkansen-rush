@@ -142,7 +142,8 @@ export default class MainPlayScene extends Phaser.Scene {
     // Game variables
     this.isPlaying = true;
     this.score = 0;
-    this.baseSpeed = 400; // pixels per second moving down
+    this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    this.baseSpeed = this.isMobile ? 200 : 400; // kiddie friendly speed on mobile
     this.speedMultiplier = 1;
     this.boostTimer = 0;
     
@@ -206,19 +207,27 @@ export default class MainPlayScene extends Phaser.Scene {
       this.swipeStartY = pointer.y;
     });
     
-    this.input.on('pointerup', (pointer) => {
+    this.input.on('pointermove', (pointer) => {
       if (!this.swipeStartX || !this.swipeStartY) return;
+      
       const dx = pointer.x - this.swipeStartX;
       const dy = pointer.y - this.swipeStartY;
-      const swipeThreshold = 50;
+      const swipeThreshold = 40; // lower threshold for quicker response
 
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > swipeThreshold) {
         if (dx > 0) this.moveLane(1);
         else this.moveLane(-1);
+        this.swipeStartX = null;
+        this.swipeStartY = null;
       } else if (Math.abs(dy) > swipeThreshold) {
         if (dy < 0) this.activateBoost();
         else this.activateBrake();
+        this.swipeStartX = null;
+        this.swipeStartY = null;
       }
+    });
+
+    this.input.on('pointerup', () => {
       this.swipeStartX = null;
       this.swipeStartY = null;
     });
@@ -228,7 +237,7 @@ export default class MainPlayScene extends Phaser.Scene {
     
     // Timers
     this.obstacleTimer = this.time.addEvent({
-      delay: 1500,
+      delay: this.isMobile ? 2500 : 1500,
       callback: this.spawnObstacle,
       callbackScope: this,
       loop: true
@@ -283,7 +292,7 @@ export default class MainPlayScene extends Phaser.Scene {
       this.tweens.add({
         targets: this.player,
         x: this.lanePositions[this.currentLane],
-        duration: 150,
+        duration: 100, // snappier lane change
         ease: 'Cubic.out'
       });
       
@@ -292,7 +301,7 @@ export default class MainPlayScene extends Phaser.Scene {
         targets: this.player,
         angle: dir * 15,
         yoyo: true,
-        duration: 150
+        duration: 100 // snappier tilt
       });
     }
   }

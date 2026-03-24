@@ -15,18 +15,20 @@
   padding: 0;
 }
 
-body {
+html, body {
   font-family: 'Outfit', 'Noto Sans JP', sans-serif;
   background-color: var(--dark-bg);
   color: var(--light-text);
   overflow: hidden; /* Prevent scrolling since it's a game */
   width: 100%;
   height: 100%;
+  height: 100dvh; /* Dynamic viewport height for modern mobile browsers */
 }
 
 #root {
   width: 100%;
   height: 100%;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,9 +36,11 @@ body {
 
 /* UI Overlays */
 .ui-overlay {
-  position: absolute;
+  position: fixed; /* Fixed is better for overlays to cover dynamic viewport */
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -45,7 +49,8 @@ body {
   align-items: center;
   background: var(--glass-bg);
   backdrop-filter: blur(8px);
-  z-index: 10;
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
 }
 
 /* Japanese/Cyberpunk UI Styles */
@@ -55,6 +60,7 @@ h1 {
   font-weight: 800;
   text-transform: uppercase;
   background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
@@ -113,7 +119,7 @@ h1 {
 
 .hud-container {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   padding: 1.5rem;

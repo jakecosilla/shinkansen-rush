@@ -15,7 +15,7 @@ const GameOver = ({ score, onRestart, onMenu, config }) => {
 
   if (isBirthday) {
     return (
-      <div className="ui-overlay" style={{ background: 'rgba(255, 255, 255, 0.4)', backdropFilter: 'none' }}>
+      <div className="ui-overlay">
         <style>
           {`
             @keyframes bouncePulse {
@@ -32,7 +32,8 @@ const GameOver = ({ score, onRestart, onMenu, config }) => {
           padding: '0 1rem',
           fontSize: 'clamp(1.8rem, 6vw, 3rem)',
           lineHeight: 1.2,
-          animation: 'bouncePulse 0.8s infinite ease-in-out'
+          animation: 'bouncePulse 0.8s infinite ease-in-out',
+          WebkitTextFillColor: 'var(--primary-color)'
         }}>
           HAPPY BIRTHDAY,<br />{playerName}!🎉
         </h1>
@@ -45,7 +46,7 @@ const GameOver = ({ score, onRestart, onMenu, config }) => {
           gap: '1.5rem',
           justifyContent: 'center',
           filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.2))',
-          fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+          fontFamily: 'Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif'
         }}>
           <span>🎊</span>
           <span>🚄🎂</span>
