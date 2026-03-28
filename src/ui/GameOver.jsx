@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RotateCcw, Home } from 'lucide-react';
+import { audioManager } from '../audio/AudioManager';
 
 const GameOver = ({ score, onRestart, onMenu, config }) => {
   let isBirthday = false;
@@ -12,6 +13,14 @@ const GameOver = ({ score, onRestart, onMenu, config }) => {
     }
   }
   const playerName = config?.name ? config.name.toUpperCase() : 'PLAYER';
+
+  useEffect(() => {
+    if (isBirthday) {
+      audioManager.playBirthdayEvent(playerName);
+    } else {
+      audioManager.playGameOver();
+    }
+  }, [isBirthday, playerName]);
 
   if (isBirthday) {
     return (

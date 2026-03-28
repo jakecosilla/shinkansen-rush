@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Play } from 'lucide-react';
 import { TrainSVGs } from '../game/TrainAssets';
+import { audioManager } from '../audio/AudioManager';
 
 const allTrains = ['hayabusa', 'doctoryellow', 'maglev', 'n700', 'komachi', 'thomas'];
 const getTrainURI = (id) => `data:image/svg+xml;utf8,${encodeURIComponent(TrainSVGs[id])}`;
@@ -9,6 +10,13 @@ const MainMenu = ({ onStart }) => {
   const [name, setName] = useState('');
   const [birthday, setBirthday] = useState('');
   const [selectedTrain, setSelectedTrain] = useState('maglev');
+
+  useEffect(() => {
+    audioManager.playMenuBGM();
+    return () => {
+      audioManager.stopBGM();
+    };
+  }, []);
 
   const handleStart = () => {
     onStart({ name, birthday, selectedTrain });

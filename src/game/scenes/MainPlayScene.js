@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { TrainSVGs } from '../TrainAssets';
+import { audioManager } from '../../audio/AudioManager';
 
 export default class MainPlayScene extends Phaser.Scene {
   constructor() {
@@ -281,6 +282,8 @@ export default class MainPlayScene extends Phaser.Scene {
        this.cake = this.add.sprite(this.player.x, this.player.y - 30, 'cake');
        this.cake.setDepth(11);
     }
+
+    audioManager.startDrivingSound();
   }
 
   moveLane(dir) {
@@ -289,6 +292,7 @@ export default class MainPlayScene extends Phaser.Scene {
     const newLane = Phaser.Math.Clamp(this.currentLane + dir, 0, 2);
     if (newLane !== this.currentLane) {
       this.currentLane = newLane;
+      audioManager.playLaneChange();
       this.tweens.add({
         targets: this.player,
         x: this.lanePositions[this.currentLane],
@@ -473,6 +477,7 @@ export default class MainPlayScene extends Phaser.Scene {
   hitObstacle() {
     if (!this.isPlaying) return;
     this.isPlaying = false;
+    audioManager.playCrash();
     
     // Stop physics
     this.physics.pause();
