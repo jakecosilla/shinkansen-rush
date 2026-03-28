@@ -345,14 +345,23 @@ class AudioManager {
 
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
-      // Wait for the song to say "Dear name" (around 7 seconds in)
-      setTimeout(() => {
-        const message = new SpeechSynthesisUtterance(`Happy Birthday, ${playerName}!`);
-        message.pitch = 1.2;
-        message.rate = 1.0;
-        message.volume = 1;
-        window.speechSynthesis.speak(message);
-      }, 7000);
+      
+      const phrases = [
+        { text: "Happy birthday to you", time: 0 },
+        { text: "Happy birthday to you", time: 3000 },
+        { text: `Happy birthday dear ${playerName}`, time: 6000 },
+        { text: "Happy birthday to you", time: 9500 }
+      ];
+
+      phrases.forEach(phrase => {
+        setTimeout(() => {
+          const message = new SpeechSynthesisUtterance(phrase.text);
+          message.pitch = 1.2;
+          message.rate = 1.1;
+          message.volume = 1;
+          window.speechSynthesis.speak(message);
+        }, phrase.time);
+      });
     }
     
     // Reset flag after song finishes (approx 13 seconds)

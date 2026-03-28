@@ -25,12 +25,14 @@ trainTypes.forEach(t => {
     <rect x="0" y="0" width="100" height="140" rx="40" fill="${t.color}" />
     <rect x="10" y="0" width="80" height="140" fill="${t.color}" />
     <rect x="25" y="0" width="50" height="140" fill="${t.stripe}" />
-    <circle cx="50" cy="50" r="40" fill="#cccccc" />
-    <!-- Eyes -->
-    <circle cx="35" cy="45" r="5" fill="#111111" />
-    <circle cx="65" cy="45" r="5" fill="#111111" />
-    <!-- Smile -->
-    <path d="M 35 65 Q 50 80 65 65" stroke="#111111" stroke-width="3" fill="none" />
+    <g transform="rotate(180, 50, 50)">
+      <circle cx="50" cy="50" r="40" fill="#cccccc" />
+      <!-- Eyes -->
+      <circle cx="35" cy="45" r="5" fill="#111111" />
+      <circle cx="65" cy="45" r="5" fill="#111111" />
+      <!-- Smile -->
+      <path d="M 35 65 Q 50 80 65 65" stroke="#111111" stroke-width="3" fill="none" />
+    </g>
     `;
   }
 
