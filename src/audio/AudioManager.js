@@ -30,11 +30,12 @@ class AudioManager {
       if (this.ctx.state === 'suspended') {
         this.ctx.resume();
       }
-      // Unlock speech synthesis
-      if ('speechSynthesis' in window) {
-        const silent = new SpeechSynthesisUtterance('');
+      if ('speechSynthesis' in window && !this.ttsUnlocked) {
+        const silent = new SpeechSynthesisUtterance('a');
         silent.volume = 0;
+        silent.rate = 10;
         window.speechSynthesis.speak(silent);
+        this.ttsUnlocked = true;
       }
       this.unlocked = true;
       
@@ -322,46 +323,48 @@ class AudioManager {
     const D5 = 587.33, E5 = 659.25, F5 = 698.46, G5 = 783.99;
     
     const melody = [
-      { f: G4, d: 0.3, t: 0 }, { f: G4, d: 0.1, t: 0.35 },
-      { f: A4, d: 0.4, t: 0.5 }, { f: G4, d: 0.4, t: 1.0 },
-      { f: C5, d: 0.4, t: 1.5 }, { f: B4, d: 0.8, t: 2.0 },
+      { f: G4, d: 0.3, t: 0, text: "Hap" }, { f: G4, d: 0.1, t: 0.35, text: "py" },
+      { f: A4, d: 0.4, t: 0.5, text: "birth" }, { f: G4, d: 0.4, t: 1.0, text: "day" },
+      { f: C5, d: 0.4, t: 1.5, text: "to" }, { f: B4, d: 0.8, t: 2.0, text: "you" },
       
-      { f: G4, d: 0.3, t: 3.0 }, { f: G4, d: 0.1, t: 3.35 },
-      { f: A4, d: 0.4, t: 3.5 }, { f: G4, d: 0.4, t: 4.0 },
-      { f: D5, d: 0.4, t: 4.5 }, { f: C5, d: 0.8, t: 5.0 },
+      { f: G4, d: 0.3, t: 3.0, text: "Hap" }, { f: G4, d: 0.1, t: 3.35, text: "py" },
+      { f: A4, d: 0.4, t: 3.5, text: "birth" }, { f: G4, d: 0.4, t: 4.0, text: "day" },
+      { f: D5, d: 0.4, t: 4.5, text: "to" }, { f: C5, d: 0.8, t: 5.0, text: "you" },
       
-      { f: G4, d: 0.3, t: 6.0 }, { f: G4, d: 0.1, t: 6.35 },
-      { f: G5, d: 0.4, t: 6.5 }, { f: E5, d: 0.4, t: 7.0 },
-      { f: C5, d: 0.4, t: 7.5 }, { f: B4, d: 0.4, t: 8.0 }, { f: A4, d: 0.8, t: 8.5 },
+      { f: G4, d: 0.3, t: 6.0, text: "Hap" }, { f: G4, d: 0.1, t: 6.35, text: "py" },
+      { f: G5, d: 0.4, t: 6.5, text: "birth" }, { f: E5, d: 0.4, t: 7.0, text: "day" },
+      { f: C5, d: 0.4, t: 7.5, text: "dear" }, { f: B4, d: 0.4, t: 8.0, text: playerName || "player" }, 
+      { f: A4, d: 0.8, t: 8.5, text: "" },
       
-      { f: F5, d: 0.3, t: 9.5 }, { f: F5, d: 0.1, t: 9.85 },
-      { f: E5, d: 0.4, t: 10.0 }, { f: C5, d: 0.4, t: 10.5 },
-      { f: D5, d: 0.4, t: 11.0 }, { f: C5, d: 1.2, t: 11.5 }
+      { f: F5, d: 0.3, t: 9.5, text: "Hap" }, { f: F5, d: 0.1, t: 9.85, text: "py" },
+      { f: E5, d: 0.4, t: 10.0, text: "birth" }, { f: C5, d: 0.4, t: 10.5, text: "day" },
+      { f: D5, d: 0.4, t: 11.0, text: "to" }, { f: C5, d: 1.2, t: 11.5, text: "you" }
     ];
 
     melody.forEach(note => {
+      // Play synth tone
       this.playNote(note.f, 'triangle', now + note.t, note.d, 0.4, this.sfxGain);
     });
 
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       
-      const phrases = [
-        { text: "Happy birthday to you", time: 0 },
-        { text: "Happy birthday to you", time: 3000 },
-        { text: `Happy birthday dear ${playerName}`, time: 6000 },
-        { text: "Happy birthday to you", time: 9500 }
-      ];
+      setTimeout(() => {
+        let voices = window.speechSynthesis.getVoices();
+        let englishVoice = voices.find(v => v.lang.includes('en-US')) || voices.find(v => v.lang.includes('en'));
 
-      phrases.forEach(phrase => {
-        setTimeout(() => {
-          const message = new SpeechSynthesisUtterance(phrase.text);
-          message.pitch = 1.2;
-          message.rate = 1.1;
-          message.volume = 1;
-          window.speechSynthesis.speak(message);
-        }, phrase.time);
-      });
+        const message = new SpeechSynthesisUtterance(`Happy Birthday, ${playerName || 'player'}!`);
+        if (englishVoice) message.voice = englishVoice;
+        message.lang = 'en-US';
+        message.volume = 1;
+        message.rate = 1.0;
+        
+        window._ttsRefs = window._ttsRefs || [];
+        window._ttsRefs.push(message);
+        message.onend = () => { window._ttsRefs = window._ttsRefs.filter(m => m !== message); };
+        
+        window.speechSynthesis.speak(message);
+      }, 7000); // 7 seconds syncs with the melody "Dear Name" section
     }
     
     // Reset flag after song finishes (approx 13 seconds)
